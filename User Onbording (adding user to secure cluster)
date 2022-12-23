@@ -1,0 +1,33 @@
+------------------------------User Onbording (adding user to secure cluster)-------------------------------
+
+
+# creating POSIX account -
+
+$ sudo useradd user1                                                                  - fire this command on workernode CLI
+
+# creating principal -
+ 
+$ sudo kadmin.local                                                                   - fire this command on CM CLI
+
+$ addprinc user1
+
+# creating user space/home directory on hdfs -
+ 
+$ su hdfs                                                                             - fire this command on workernode CLI
+
+$ kinit -p hdfs
+
+$ hdfs dfs -mkdir /user/user1
+
+$ hdfs dfs -ls /user 
+ 
+# assign ownership - user space/home directory -
+
+$ hdfs dfs -chown user1/user1 /user/user1
+
+# assign appropriate permissions on user space/home directory -
+
+$ hdfs dfs -chmod 660 /user/user1
+
+$ hdfs dfs -ls /user 
+---------------------------------------------------------------------------------------------------------------------------
